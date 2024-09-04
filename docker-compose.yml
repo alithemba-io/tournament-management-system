@@ -1,0 +1,31 @@
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3006:3001"
+      - "50052:50051"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/tournament_management
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+    - CI=true
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=tournament_management
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

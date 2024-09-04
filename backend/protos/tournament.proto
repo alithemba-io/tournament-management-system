@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package tournament;
+
+service TournamentService {
+  rpc GetTournaments (Empty) returns (TournamentList) {}
+  rpc GetTournament (TournamentId) returns (Tournament) {}
+  rpc CreateTournament (Tournament) returns (Tournament) {}
+  rpc UpdateTournament (Tournament) returns (Tournament) {}
+  rpc DeleteTournament (TournamentId) returns (Empty) {}
+}
+
+message Empty {}
+
+message TournamentId {
+  int32 id = 1;
+}
+
+message Tournament {
+  int32 id = 1;
+  string name = 2;
+  string startDate = 3;
+  string endDate = 4;
+  string status = 5;
+}
+
+message TournamentList {
+  repeated Tournament tournaments = 1;
+}
